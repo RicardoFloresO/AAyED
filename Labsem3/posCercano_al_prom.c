@@ -84,5 +84,6 @@ int main(int argc, char *argv[]){
 	printf("El valor mas cercano es: %d\n", A[pos]);
 	printf("La posicion del elemento mas cercano es : %d\n",pos);
 	free(A);
+	
 	return 0;
 }
