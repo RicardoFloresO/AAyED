@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <math.h>
 
+
 //Se crea estructura para la posicion del punto
 struct reg_punto{
 	int coord_x;
@@ -17,6 +18,7 @@ int calcula_distancia(Punto *A, Punto *B);
 int distancia_origen(Punto *A);
 int cuadrante(Punto *A);
 void desplazar(Punto *A, int dx, int dy);
+int esta_en_eje(Punto *A);
 
 //Se implementan las operaciones del TDApunto
 Punto* crea_punto(int x, int y){
@@ -67,3 +69,16 @@ void desplazar(Punto *A, int dx, int dy){
 	A->coord_x = A->coord_x+dx;
 	A->coord_y = A->coord_y+dy;
 }
+
+int esta_en_eje(Punto *A){
+	int x = A->coord_x;
+	int y = A->coord_y;
+	if(A->coord_x==0 || A->coord_y==0){
+		//printf("Punto P1 SI esta en uno de los ejes");
+		return 1;
+	}else{
+		//printf("Punto P1 NO esta en uno de los ejes");
+		return 0;
+	}
+}
+

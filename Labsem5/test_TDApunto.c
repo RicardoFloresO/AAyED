@@ -18,6 +18,13 @@ int main(int argc, char *argv[]){
 	mostrar_punto(P1);
 	desplazar(P1,2,-2);
 	mostrar_punto(P1);
+	
+	int res = esta_en_eje(P1);
+	if(res==1){
+		printf("Punto P1 SI esta en uno de los ejes");
+	}else{
+		printf("Punto P1 NO esta en uno de los ejes");
+	}
 
 	return 0;
 }
