@@ -18,7 +18,9 @@ int calcula_distancia(Punto *A, Punto *B);
 int distancia_origen(Punto *A);
 int cuadrante(Punto *A);
 void desplazar(Punto *A, int dx, int dy);
+
 int esta_en_eje(Punto *A);
+//int distancia_puntoSimetrico(Punto *A);
 
 //Se implementan las operaciones del TDApunto
 Punto* crea_punto(int x, int y){
@@ -82,3 +84,7 @@ int esta_en_eje(Punto *A){
 	}
 }
 
+/*int distancia_puntoSimetrico(Punto *A){
+	Punto Asim = crea_punto(A->coord_x*-1,A->coord_y*-1);
+	int calcula_distancia(A,Asim);
+}*/

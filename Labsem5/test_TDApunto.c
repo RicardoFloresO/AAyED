@@ -2,6 +2,12 @@
 #include <stdlib.h>
 #include "TDApunto.h"
 
+int distancia_puntoSimetrico(Punto *A){
+	Punto *Asim = crea_punto(A->coord_x*-1,A->coord_y*-1);
+	int dis = distancia_origen(Asim);
+	return dis;
+}
+
 int main(int argc, char *argv[]){
 
 	if(argc!=5){
@@ -12,6 +18,7 @@ int main(int argc, char *argv[]){
 	Punto *P2=crea_punto(atoi(argv[3]),atoi(argv[4]));
 	printf("dist entre puntos-> %d\n",calcula_distancia(P1,P2));
 	printf("dist al origen(0,0)-> %d\n",distancia_origen(P1));
+	printf("dist al origen(0,0) del Psim-> %d\n",distancia_puntoSimetrico(P1));
 	printf("dist al origen(0,0)-> %d\n",distancia_origen(P2));
 	printf("cuadrante-> %d\n", cuadrante(P1));
 	printf("cuadrante-> %d\n", cuadrante(P2));
@@ -25,6 +32,8 @@ int main(int argc, char *argv[]){
 	}else{
 		printf("Punto P1 NO esta en uno de los ejes");
 	}
+
+
 
 	return 0;
 }
