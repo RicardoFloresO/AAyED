@@ -77,9 +77,23 @@ Lista* cercano(Lista *L1){
 
 /*  PROBLEMA 4: Funcion(es)  */
 
+void mostrarPila(Pila *P){
+	if(!(isEmptyPila(P))){
+		Nodop *ptr = P->top;
+		while(ptr != NULL){
+			printf(" [ %d ]\n", ptr->info);
+			ptr = ptr->sig;
+		}
+		printf("\n");
+	}else{
+		printf("\n Pila vacia\n");
+	}
 
+}
 
-
+Pila* intercambio(Pila *P){
+	
+}
 
 
 
@@ -166,7 +180,8 @@ int main(int argc,  char *argv[]){
 	/*		                 P R O B L E M A    4					   */
 	/* *************************************************************** */
 
-
+	printf("Se muestra la pila\n");
+	mostrarPila(P);
 
 
 
