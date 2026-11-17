@@ -4,7 +4,12 @@
 #define TDACARGA_H
 
 /*El TDAcarga esta basado en el TDAlista con algunas modificaciones, 
-la idea es generar una lista que pueda almacenar las cargas que se utilizaran.
+la idea es generar una lista que pueda almacenar las cargas que se utilizaran,
+donde cada nodo en vez de tener un info tendra una carga, esta carga presentará
+un id y un peso
+
+Entonces una lista de cargas representara a la zona de acopio o algun contenedor 
+con las cargas presentes.
 */
 
 //El struct carga almacenará el id y el peso de cada carga
@@ -115,5 +120,19 @@ precond: recibe una lista de cargas que sera mostrada
 postcond: muestra por consola los datos de cada carga en la lista
 */
 void mostrarListaCarga(ListaCarga *L);
+
+/*
+Contara cuantas cargas se presentan en la lista
+precond: recibe una lista de cargas
+postcond: devuelve el numero total de cargas presentes en la lista
+*/
+int numCargas(ListaCarga *L);
+
+/*
+Sumara los pesos de cada carga presente en la lista
+precond: recibe una lista de cargas
+postcond: devuelve la suma total de los pesos presentes en la lista de carga
+*/
+int pesoListaCarga(ListaCarga *L);
 
 #endif

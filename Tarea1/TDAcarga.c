@@ -69,7 +69,8 @@ void insertarCargaFin(ListaCarga *L, Carga cargaInsertar){
 /*
 Elimina el primer nodo de la lista
 precond: recibe una lista no vacia a la cual se le eliminara el primer nodo
-postcond: devuelve la lista sin el primer nodo y libera la memoria del nodo eliminado
+postcond: devuelve la lista sin el primer nodo y libera la memoria 
+del nodo eliminado
 */
 void eliminarCargaInicio(ListaCarga *L){
 	if(isListaCargaVacia(L) == true){
@@ -85,7 +86,8 @@ void eliminarCargaInicio(ListaCarga *L){
 /*
 Elimina el ultimo nodo de la lista
 precond: recibe una lista no vacia a la cual se le eliminara el ultimo nodo
-postcond: devuelve la lista sin el ultimo nodo y libera la memoria del nodo eliminado
+postcond: devuelve la lista sin el ultimo nodo y libera la memoria 
+del nodo eliminado
 */
 void eliminarCargaFin(ListaCarga *L){
 	if(isListaCargaVacia(L) == true){
@@ -124,7 +126,8 @@ NodoCarga* buscarNodoCargaId(ListaCarga *L, int idBuscar){
 /*
 Elimina un nodo de la lista a partir de su ID
 precond: recibe una lista y un ID para buscar el NodoCarga a eliminar
-postcond: elimina el nodo de la lista y libera la memoria del nodo eliminado, si no se encuentra el ID no hace nada
+postcond: elimina el nodo de la lista y libera la memoria del nodo eliminado, 
+si no se encuentra el ID no hace nada
 */
 void eliminarCargaId(ListaCarga *L, int idEliminar){
 	if(L->head == NULL){
@@ -198,4 +201,34 @@ void mostrarListaCarga(ListaCarga *L){
 		}
 		printf("NULL\n");
 	}
+}
+
+/*
+Contara cuantas cargas se presentan en la lista
+precond: recibe una lista de cargas
+postcond: devuelve el numero total de cargas presentes en la lista
+*/
+int numCargas(ListaCarga *L){
+	int cont = 0;
+	NodoCarga *ptr = L->head;
+	while(ptr != NULL){
+		cont++;
+		ptr = ptr->sig;
+	}
+	return cont;
+}
+
+/*
+Sumara los pesos de cada carga presente en la lista
+precond: recibe una lista de cargas
+postcond: devuelve la suma total de los pesos presentes en la lista de carga
+*/
+int pesoListaCarga(ListaCarga *L){
+	int pesoTot =0;
+	NodoCarga *ptr = L->head;
+	while(ptr != NULL){
+		pesoTot = pesoTot + ptr->carga.peso;
+		ptr = ptr->sig;
+	}
+	return pesoTot;
 }
