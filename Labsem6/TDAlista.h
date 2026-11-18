@@ -95,7 +95,7 @@ Lista* crearInsertarLista_desde_archivo(char *nom_archivo){
 		fscanf(fp, "%d", &val);
 		insertarFin(lis, val);
 	}
-	fclose(fp);	
+	fclose(fp);
 	return lis;
 }
 
