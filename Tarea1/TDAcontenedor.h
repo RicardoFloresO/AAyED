@@ -37,6 +37,13 @@ typedef struct listaContenedor ListaContenedor;
 //Definicion de las operaciones del TDAcontenedor
 
 /*
+Inicializa los valores para un contenedor nuevo e inicializa la listaCarga presente en el contenedor
+precond: Recibe el id y la capacidad maxima para el contenedor
+postcond: Devuelve el contenedor inicializado con sus valores corrrespondientes
+*/
+Contenedor crearContenedor(int id, int capMax);
+
+/*
 Se crea un nodo que almacena un contenedor
 precond: recibe el contenedor que almacena
 postcond: devuelve un nodo con un contenedor almacenado
@@ -60,16 +67,23 @@ bool isListaContenedorVacia(ListaContenedor *L);
 /*
 Inserta un contenedor al final de la lista creando un nodo nuevo
 precond: recibe una lista donde se insertara y el contenedor que se inserta
-postcond: devuelve al lista con un nodo nuevo que almacena un contenedor
+postcond: agrega el nodo al final de la lista
 */
 void insertarContenedorFin(ListaContenedor *L, Contenedor conten);
 
 /*
 Elimina el primer nodo de la lista
 precond: recibe una lista no vacia a la cual sele eliminara el primer nodo
-postcond: devuelve la lista sin el primer nodo y libera la memoria del nodo eliminado
+postcond: elimina el primer nodo de la lista y libera la memoria del nodo eliminado
 */
 void eliminarContenedorInicio(ListaContenedor *L);
+
+/*
+Elimina el ultimo nodo de la lista
+precond: recibe una lista no vacia en la cual se eliminara el ultimo nodo
+postcond: elimina el ultimo nodo de la lista y libera la memoria del nodo eliminado
+*/
+void eliminarContenedorFin(ListaContenedor *L);
 
 /*
 Contara cuantos contenedores hay presentes en la lista
@@ -85,6 +99,13 @@ precond: Recibe el nodo en el cual se agregara la carga y la carga
 postcond: devuelve true si fue posible agregar la carga y false si no fue posible
 */
 bool agregarCargaContenedor(NodoContenedor *nodoCont, Carga cargaInsertar);
+
+/*
+Elimina una carga que esta almacenada en un contenedor en especifico
+precond: Recibe el nodo en el cual se eliminara la carga de la lista y la carga a eliminar
+postcond: Elimina la carga de la lista en el contenedor y actualiza los pesos
+*/
+void eliminarCargaContenedor(NodoContenedor *nodoCont, Carga cargaEliminar);
 
 /*
 Crea una copia de la lista contenedor para poder trabajar sin alterar la original

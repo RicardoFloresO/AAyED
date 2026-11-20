@@ -192,7 +192,7 @@ postcond: muestra por consola los datos de cada carga en la lista
 */
 void mostrarListaCarga(ListaCarga *L){
 	if(L->head == NULL){
-		printf("Lista vacia\n");
+		printf("vacia\n");
 	}else{
 		NodoCarga *ptr = L->head;
 		while(ptr != NULL){

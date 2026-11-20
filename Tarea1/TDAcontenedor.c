@@ -5,6 +5,21 @@
 #include "TDAcarga.h"
 
 /*
+Inicializa los valores para un contenedor nuevo e inicializa la listaCarga presente en el contenedor
+precond: Recibe el id y la capacidad maxima para el contenedor
+postcond: Devuelve el contenedor inicializado con sus valores corrrespondientes
+*/
+Contenedor crearContenedor(int id, int capMax){
+	Contenedor nvoCont;
+	nvoCont.id = id;
+	nvoCont.capMax = capMax;
+	nvoCont.cargas = crearListaCarga();
+	nvoCont.capAct = 0;
+	nvoCont.capDisp = capMax;
+	return nvoCont;
+}
+
+/*
 Se crea un nodo que almacena un contenedor
 precond: recibe el contenedor que almacena
 postcond: devuelve un nodo con un contenedor almacenado
@@ -77,6 +92,31 @@ void eliminarContenedorInicio(ListaContenedor *L){
 }
 
 /*
+Elimina el ultimo nodo de la lista
+precond: recibe una lista no vacia en la cual se eliminara el ultimo nodo
+postcond: elimina el ultimo nodo de la lista y libera la memoria del nodo eliminado
+*/
+void eliminarContenedorFin(ListaContenedor *L){
+	if(isListaContenedorVacia(L) == true){
+		printf("La lista esta vacia.\n");
+	}else{
+		NodoContenedor *ptr = L->head;
+		if(ptr->sig == NULL){
+			L->head = NULL;
+		}else{
+			NodoContenedor *ant = NULL;
+			while(ptr->sig != NULL){
+				ant = ptr;
+				ptr = ptr->sig;
+			}
+			ant->sig = NULL;
+		}
+		destruirListaCarga(ptr->conten.cargas);
+		free(ptr);
+	}
+}
+
+/*
 Contara cuantos contenedores hay presentes en la lista
 precond: recibe una lista de contenedores
 postcond: devuelve el numero total de contenedores presentes en la lista
@@ -98,7 +138,32 @@ precond: Recibe el nodo en el cual se agregara la carga y la carga
 postcond: devuelve true si fue posible agregar la carga y false si no fue posible
 */
 bool agregarCargaContenedor(NodoContenedor *nodoCont, Carga cargaInsertar){
-	
+	if(nodoCont == NULL){
+		printf("El contenedor de destino no existe\n");
+		return false;
+	}else{
+		if(cargaInsertar.peso <= nodoCont->conten.capDisp){
+			insertarCargaFin(nodoCont->conten.cargas, cargaInsertar);
+			nodoCont->conten.capAct = nodoCont->conten.capAct + cargaInsertar.peso;
+			nodoCont->conten.capDisp = nodoCont->conten.capMax - nodoCont->conten.capAct;
+			return true;
+		}else{
+			return false;
+		}
+	}
+}
+
+/*
+Elimina una carga que esta almacenada en un contenedor en especifico
+precond: Recibe el nodo en el cual se eliminara la carga de la lista y la carga a eliminar
+postcond: Elimina la carga de la lista en el contenedor y actualiza los pesos
+*/
+void eliminarCargaContenedor(NodoContenedor *nodoCont, Carga cargaEliminar){
+	if(nodoCont != NULL){
+		eliminarCargaId(nodoCont->conten.cargas, cargaEliminar.id);
+		nodoCont->conten.capAct = nodoCont->conten.capAct - cargaEliminar.peso;
+		nodoCont->conten.capDisp = nodoCont->conten.capMax - nodoCont->conten.capAct;
+	}
 }
 
 /*
@@ -110,7 +175,9 @@ ListaContenedor* copiarListaContenedor(ListaContenedor *L){
 	ListaContenedor *Laux = crearListaContenedor();
 	NodoContenedor *ptr = L->head;
 	while(ptr != NULL){
-		insertarContenedorFin(Laux, ptr->conten);
+		Contenedor copiaCont = ptr->conten;
+		copiaCont.cargas = copiarListaCarga(ptr->conten.cargas);
+		insertarContenedorFin(Laux, copiaCont);
 		ptr = ptr->sig;
 	}
 	return Laux;
@@ -136,4 +203,28 @@ Se mostrara por consola la lista de contenedores
 precond: recibe una lista de contenedores que sera mostrada
 postcond: muestra por consola los datos de cada contenedor en la lista
 */
-void mostrarListaContenedor(ListaContenedor *L);
+void mostrarListaContenedor(ListaContenedor *L){
+	if (isListaContenedorVacia(L) == true) {
+        printf("Lista vacia.\n");
+    } else {
+        NodoContenedor *ptr = L->head;
+        while (ptr != NULL) {
+            printf("Contenedor %d: ", ptr->conten.id);
+
+            NodoCarga *ptrC = ptr->conten.cargas->head;
+            while (ptrC != NULL) {
+                printf("c%d", ptrC->carga.id);
+                if (ptrC->sig != NULL) {
+                    printf(", ");
+                }
+                ptrC = ptrC->sig;
+            }
+
+            printf(" | peso total: %d | espacio disponible: %d\n",
+                   ptr->conten.capAct,
+                   ptr->conten.capDisp);
+
+            ptr = ptr->sig;
+        }
+    }
+}

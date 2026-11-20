@@ -23,14 +23,14 @@ ListaCarga* archivoListaCarga(char *nom_archivo, int *capMax) {
     ListaCarga *zonaAcopio = crearListaCarga();
 
     //Se lee la cantidad de cargas y la capacidad maxima
-    fscanf(fp, "%d %d", &n, capMax)
+    fscanf(fp, "%d %d", &n, capMax);
 
 	//Se lee el peso de cada carga desde el archivo y se le asigna a una carga con id
     for (int i = 0; i < n; i++) {
         fscanf(fp, "%d", &pesos);
         Carga nuevaCarga;
         nuevaCarga.id = i + 1;
-        nuevaCarga.peso = pesoLeido;
+        nuevaCarga.peso = pesos;
 
         insertarCargaFin(zonaAcopio, nuevaCarga);
         
