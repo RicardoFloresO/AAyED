@@ -228,3 +228,93 @@ void mostrarListaContenedor(ListaContenedor *L){
         }
     }
 }
+
+/*
+obtiene el primer nodo contenedor de la lista
+precond: Recibe una lista de contenedores
+postcond: Devuelve el puntero al primer nodo de la lista
+*/
+NodoContenedor* primerNodoContenedor(ListaContenedor *L){
+	if(L == NULL){
+		return NULL;
+	}else{
+		return L->head;
+	}
+}
+
+/*
+obtiene el ultimo nodo contenedor de la lista
+precond: Recibe una lista de contenedores
+postcond: Devuelve el puntero al ultimo nodo de la lista
+*/
+NodoContenedor* ultimoNodoContenedor(ListaContenedor *L){
+    if(L == NULL || L->head == NULL){
+        return NULL;
+    }else{
+        NodoContenedor *ptr = L->head;
+        while(ptr->sig != NULL){
+            ptr = ptr->sig;
+        }
+        return ptr;
+    }
+}
+/*
+obtiene el nodo contenedor siguiente al actual
+precond: Recibe un nodo contenedor
+postcond: Devuelve el puntero al siguiente nodo
+*/
+NodoContenedor* siguienteNodoContenedor(NodoContenedor *N){
+	if(N == NULL){
+		return NULL;
+	}else{
+		return N->sig;
+	}
+}
+
+/*
+obtiene el id del contenedor
+precond: Recibe un nodo contenedor no vacio
+postcond: Devuelve el id del contenedor
+*/
+int idContenedor(NodoContenedor *N){
+	return N->conten.id;
+}
+
+/*
+obtiene la lista de cargas almacenadas dentro de un contenedor
+precond: Recibe un nodo contenedor no vacio
+postcond: Devuelve el puntero a la lista en el nodo contenedor
+*/
+ListaCarga* cargasDeContenedor(NodoContenedor *N){
+	return N->conten.cargas;
+}
+
+/*
+verifica si una carga cabe en el espacio disponible de un contenedor
+precond: Recibe un nodo contenedor no vacio y una carga
+postcond: Devuelve true si el peso cabe en capDisp, false en caso contrario
+*/
+bool cabeCarga(NodoContenedor *N, Carga cargaInsertar){
+	//Verifica que el nodo no este vacio y que el peso de la carga sea menor o igual al de la capacidad disponible del contenedor
+	if(N != NULL && cargaInsertar.peso <= N->conten.capDisp){ 
+		return true;
+	}else{
+		return false;
+	}
+}
+
+/*
+Busca en que contenedor de la lista se encuentra una carga especifica
+precond: Recibe una lista de contenedores y el id de la carga buscada
+postcond: Devuelve el id del contenedor que la contiene o -1 si no esta
+*/
+int contenedorDeCarga(ListaContenedor *L, int idCarga){
+	NodoContenedor *ptr = L->head;
+	while(ptr != NULL){
+		if(buscarNodoCargaId(ptr->conten.cargas ,idCarga) != NULL){
+			return ptr->conten.id;
+		}
+		ptr = ptr->sig;
+	}
+	return -1;
+}

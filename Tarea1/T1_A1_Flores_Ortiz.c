@@ -4,6 +4,7 @@
 
 #include "TDAcarga.h"
 #include "TDAcontenedor.h"
+#include "algoritmos.h"
 
 /*Esta funcion creara la zona de acopio a partir de los datos que obtenga de los archivos
 de prueba, de la primera linea del archivo se obtiene la capacidad maxima de los contenedores
@@ -54,22 +55,8 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    printf("Capacidad maxima por contenedor (C): %d\n", capContenedor);
-    printf("Cantidad de cargas leidas (N): %d\n", numCargas(zonaAcopio));
-    printf("Peso total en Zona de Acopio: %d\n\n", pesoListaCarga(zonaAcopio));
-
-    printf("--- Zona de Acopio Original ---\n");
-    mostrarListaCarga(zonaAcopio);
-
-    // Probamos copiar y eliminar en la copia sin dañar la original
-    ListaCarga *copia = copiarListaCarga(zonaAcopio);
-    eliminarCargaId(copia, 1);
-    printf("\n--- Copia sin la carga c1 ---\n");
-    mostrarListaCarga(copia);
-
-    // Liberamos memoria
-    destruirListaCarga(zonaAcopio);
-    destruirListaCarga(copia);
+    ListaContenedor *listaHeuristica = heuristica(zonaAcopio, capContenedor);
+    mostrarListaContenedor(listaHeuristica);
 
     return 0;
 }

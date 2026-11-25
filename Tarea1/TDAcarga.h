@@ -58,6 +58,27 @@ postcond: devuelve un nodo con la carga almacenada
 NodoCarga *crearNodoCarga(Carga cargaNueva);
 
 /*
+Encuentra el primer nodo de la lista de cargas
+precond: Recibe una lista de cargas a la cual se le encontrara el primer nodo
+postcond: Devuelve el primer nodo de la lista
+*/
+NodoCarga* primerNodoCarga(ListaCarga *L);
+
+/*
+Encuentra el nodo siguiente al nodo actual
+precond: Recibe un nodo al cual se le encontrara cual sera su nodo siguiente
+postcond: Devuelve el nodo siguiente del nodo recibido o NULL si es el ultimo nodo de la lista
+*/
+NodoCarga* siguienteNodoCarga(NodoCarga *N);
+
+/*
+Muestra la carga almacenada en el nodo
+precond: Recibe un nodo al cual se accedera a la carga
+postcond: Devuelve la carga del nodo recibido
+*/
+Carga cargaNodo(NodoCarga *N);
+
+/*
 Inserta una carga al inico de la lista creando un nodo nuevo
 precond: recibe la lista donde se insertara y la carga que se inserta
 postcond: devuelve la lista con un nodo nuevo que almacena la carga

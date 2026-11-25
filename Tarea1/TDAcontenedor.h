@@ -128,4 +128,54 @@ precond: recibe una lista de contenedores que sera mostrada
 postcond: muestra por consola los datos de cada contenedor en la lista
 */
 void mostrarListaContenedor(ListaContenedor *L);
+
+/*
+obtiene el primer nodo contenedor de la lista
+precond: Recibe una lista de contenedores
+postcond: Devuelve el puntero al primer nodo de la lista
+*/
+NodoContenedor* primerNodoContenedor(ListaContenedor *L);
+
+/*
+obtiene el ultimo nodo contenedor de la lista
+precond: Recibe una lista de contenedores
+postcond: Devuelve el puntero al ultimo nodo de la lista
+*/
+NodoContenedor* ultimoNodoContenedor(ListaContenedor *L);
+
+/*
+obtiene el nodo contenedor siguiente al actual
+precond: Recibe un nodo contenedor
+postcond: Devuelve el puntero al siguiente nodo
+*/
+NodoContenedor* siguienteNodoContenedor(NodoContenedor *N);
+
+/*
+obtiene el id del contenedor
+precond: Recibe un nodo contenedor no vacio
+postcond: Devuelve el id del contenedor
+*/
+int idContenedor(NodoContenedor *N);
+
+/*
+obtiene la lista de cargas almacenadas dentro de un contenedor
+precond: Recibe un nodo contenedor no vacio
+postcond: Devuelve el puntero a la lista en el nodo contenedor
+*/
+ListaCarga* cargasDeContenedor(NodoContenedor *N);
+
+/*
+verifica si una carga cabe en el espacio disponible de un contenedor
+precond: Recibe un nodo contenedor no vacio y una carga
+postcond: Devuelve true si el peso cabe en capDisp, false en caso contrario
+*/
+bool cabeCarga(NodoContenedor *N, Carga c);
+
+/*
+Busca en que contenedor de la lista se encuentra una carga especifica
+precond: Recibe una lista de contenedores y el id de la carga buscada
+postcond: Devuelve el id del contenedor que la contiene o -1 si no esta
+*/
+int contenedorDeCarga(ListaContenedor *L, int idCarga);
+
 #endif

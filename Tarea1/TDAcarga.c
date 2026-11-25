@@ -232,3 +232,39 @@ int pesoListaCarga(ListaCarga *L){
 	}
 	return pesoTot;
 }
+
+/*
+Encuentra el primer nodo de la lista de cargas
+precond: Recibe una lista de cargas a la cual se le encontrara el primer nodo
+postcond: Devuelve el primer nodo de la lista
+*/
+NodoCarga* primerNodoCarga(ListaCarga *L){
+	if(L == NULL){
+		printf("La lista esta vacia.\n");
+		return NULL;
+	}else{
+		return L->head;
+	}
+}
+
+/*
+Se mueve al nodo siguiente de la lista
+precond: Recibe un nodo al cual se le encontrara cual sera su nodo siguiente
+postcond: Devuelve el nodo siguiente del nodo recibido o NULL si es el ultimo nodo de la lista
+*/
+NodoCarga* siguienteNodoCarga(NodoCarga *N){
+	if(N == NULL){
+		return NULL;
+	}else{
+		return N->sig;
+	}
+}
+
+/*
+Muestra la carga almacenada en el nodo
+precond: Recibe un nodo al cual se accedera a la carga
+postcond: Devuelve la carga del nodo recibido
+*/
+Carga cargaNodo(NodoCarga *N){
+	return N->carga;
+}
