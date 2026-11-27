@@ -4,6 +4,49 @@
 
 #include "algoritmos.h"
 
+/*La idea es encontrar todas la combinaciones posibles de asignacion para los contenedores, para esto se utiliza una 
+estrategia llamada backtracking, en la cual se iran generando todas las posibles combinaciones validas para distribuir 
+en los contenedores las cargas, pero a medida que se vayan generando estas se iran eligiendo la mas optima en cada momento, es decir,
+si en algun punto se genera una combinacion que involucre mas contenedores que la combinacion anterior esta no se tomara en cuenta,
+esto se trabajara sobre una copia de la zona de acopio para no alterar la zona original, 
+*/
+
+void backtracking(NodoCarga *nodoActual, ListaContenedor *Laux, ListaContenedor **Contenedores, int capMax, int totCargas){
+	if(nodoActual == NULL){
+		int usadosActual = numContenedores(Laux);
+
+		if(*Contenedores == NULL || usadosActual < numContenedores(*Contenedores)){
+			if(*Contenedores != NULL){
+				destruirListaContenedor(*Contenedores);
+			}
+			*Contenedores = copiarListaContenedor(Laux);
+		}
+		return;
+	}
+
+	Carga cargaActual = cargaNodo(nodoActual);
+	NodoContenedor *ptrCont = primerNodoContenedor(Laux);
+
+	while(ptrCont != NULL){
+		if(agregarCargaContenedor(ptrCont, cargaActual) == true){
+			backtracking(siguienteNodoCarga(nodoActual),Laux,Contenedores,capMax,totCargas);
+			eliminarCargaContenedor(ptrCont,cargaActual);
+		}
+		ptrCont = siguienteNodoContenedor(ptrCont);
+	}
+
+	if(numContenedores(Laux) < totCargas){
+		int nvoId = numContenedores(Laux) + 1;
+		Contenedor nvoCont = crearContenedor(nvoId, capMax);
+		insertarContenedorFin(Laux,nvoCont);
+		agregarCargaContenedor(ultimoNodoContenedor(Laux),cargaActual);
+		backtracking(siguienteNodoCarga(nodoActual),Laux,Contenedores,capMax,totCargas);
+		eliminarContenedorFin(Laux);
+	}
+
+	
+}
+
 /*
 Aplica el algoritmo de asignacion exacto para encontrar la menor cantidad de contenedores posible
 precond: Recibe la zona de acopio de donde se sacaran las cargas para ser asignadas y la 
@@ -11,7 +54,16 @@ capacidad maxima que tendran los contenedores
 postcond: Devuelve una lista de contenedores con la distribucion
 optima de cargas en los contenedores
 */
-ListaContenedor* exacto(ListaCarga *Acopio, int capMax);
+
+ListaContenedor* exacto(ListaCarga *Acopio, int capMax){
+	ListaContenedor *Laux = crearListaContenedor();
+	ListaContenedor *Contenedores = NULL;
+	int totCargas = numCargas(Acopio);
+
+	backtracking(primerNodoCarga(Acopio),Laux, &Contenedores, capMax, totCargas);
+	destruirListaContenedor(Laux);
+	return Contenedores;
+}
 
 /*
 Aplica la heuristica para asignar de manera eficiente una posible solucion optima
