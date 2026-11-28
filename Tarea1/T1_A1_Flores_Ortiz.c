@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <time.h>
 
-#include "TDAcarga.h"
+#include "TDAcarga.h" 
 #include "TDAcontenedor.h"
 #include "algoritmos.h"
 
@@ -56,7 +57,12 @@ int main(int argc, char *argv[]) {
     }
 
     ListaContenedor *listaHeuristica = heuristica(zonaAcopio, capContenedor);
+    printf("====Algoritmo Heuristico====\n");
     mostrarListaContenedor(listaHeuristica);
+
+    ListaContenedor *listaExacta = exacto(zonaAcopio, capContenedor);
+    printf("====Algoritmo Exacto====\n");
+    mostrarListaContenedor(listaExacta);
 
     return 0;
 }

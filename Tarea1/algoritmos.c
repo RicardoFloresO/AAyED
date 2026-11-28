@@ -11,11 +11,22 @@ si en algun punto se genera una combinacion que involucre mas contenedores que l
 esto se trabajara sobre una copia de la zona de acopio para no alterar la zona original, 
 */
 
+/*
+
+precond:
+postcond:
+*/
 void backtracking(NodoCarga *nodoActual, ListaContenedor *Laux, ListaContenedor **Contenedores, int capMax, int totCargas){
+	//caso base, que el nodo actual sea nulo, es decir, que ya se asignaron todas las cargas
 	if(nodoActual == NULL){
+		//Contenedores usados para almacenar las cargas
 		int usadosActual = numContenedores(Laux);
 
+		/*Se comprueba si la lista de contenedores donde se almacenara la mejor combinacion esta vacia, de ser asi se le asigna la lista de contenedores optima
+		O se comprueba si los contenedores usados en la combinacion actual es menor que la cantidad de contenedores usados en la solucion optima que esta almacenada
+		en *Contenedores*/
 		if(*Contenedores == NULL || usadosActual < numContenedores(*Contenedores)){
+			//En caso de que *Contenedores no este vacio, se destruye lo que tenga almacenado para poder insertar los contenedores de la solucion optima
 			if(*Contenedores != NULL){
 				destruirListaContenedor(*Contenedores);
 			}
@@ -24,6 +35,7 @@ void backtracking(NodoCarga *nodoActual, ListaContenedor *Laux, ListaContenedor 
 		return;
 	}
 
+	
 	Carga cargaActual = cargaNodo(nodoActual);
 	NodoContenedor *ptrCont = primerNodoContenedor(Laux);
 
@@ -56,12 +68,17 @@ optima de cargas en los contenedores
 */
 
 ListaContenedor* exacto(ListaCarga *Acopio, int capMax){
+	//Lista de contenedores vacia para que backtracking pueda hacer las iteraciones
 	ListaContenedor *Laux = crearListaContenedor();
+	//Lista de contenedores donde estara la iteracion con menores contenedores ocupados, se ocupara como un puntero para apuntar
+	//directamente a ese puntero y no realizar una copia completa
 	ListaContenedor *Contenedores = NULL;
 	int totCargas = numCargas(Acopio);
 
+	//llamada a backtracking para que se realicen las iteraciones correspondientes
 	backtracking(primerNodoCarga(Acopio),Laux, &Contenedores, capMax, totCargas);
 	destruirListaContenedor(Laux);
+	//Se devuelve la lista de contenedores con la solucion optima
 	return Contenedores;
 }
 
